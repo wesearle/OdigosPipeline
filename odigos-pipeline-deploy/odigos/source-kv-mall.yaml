@@ -1,0 +1,10 @@
+apiVersion: odigos.io/v1alpha1
+kind: Source
+metadata:
+  name: namespace-source-kv-mall
+  namespace: kv-mall
+spec:
+  workload:
+    name: kv-mall
+    namespace: kv-mall
+    kind: Namespace

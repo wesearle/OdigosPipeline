@@ -1,0 +1,15 @@
+apiVersion: odigos.io/v1alpha1
+kind: InstrumentationRule
+metadata:
+  name: ui-instrumentation-rule
+  namespace: odigos-system
+spec:
+  codeAttributes:
+    column: true
+    filePath: true
+    function: true
+    lineNumber: true
+    namespace: true
+    stackTrace: true
+  customInstrumentations: {}
+  payloadCollection: {}
