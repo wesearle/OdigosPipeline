@@ -1,0 +1,68 @@
+apiVersion: odigos.io/v1alpha1
+kind: Destination
+metadata:
+  name: jaeger-example
+  namespace: odigos-system
+spec:
+  data:
+    JAEGER_URL: jaeger-collector.default.svc.cluster.local:4317
+  destinationName: jaeger
+  signals:
+    - TRACES
+  type: jaeger
+
+---
+apiVersion: odigos.io/v1alpha1
+kind: Source
+metadata:
+  name: namespace-source-kv-mall
+  namespace: kv-mall
+spec:
+  workload:
+    name: kv-mall
+    namespace: kv-mall
+    kind: Namespace
+
+---
+apiVersion: odigos.io/v1alpha1
+kind: Source
+metadata:
+  name: namespace-source-kv-mall-infra
+  namespace: kv-mall-infra
+spec:
+  workload:
+    name: kv-mall-infra
+    namespace: kv-mall-infra
+    kind: Namespace
+
+---
+apiVersion: actions.odigos.io/v1alpha1
+kind: LatencySampler
+metadata:
+  name: frontend-latency-sampler
+  namespace: odigos-system
+spec:
+  endpoints_filters:
+    - service_name: frontend
+      http_route: /keepalive
+      minimum_latency_threshold: 3000
+      fallback_sampling_ratio: 0
+  signals:
+    - TRACES
+
+---
+apiVersion: odigos.io/v1alpha1
+kind: InstrumentationRule
+metadata:
+  name: ui-instrumentation-rule
+  namespace: odigos-system
+spec:
+  codeAttributes:
+    column: true
+    filePath: true
+    function: true
+    lineNumber: true
+    namespace: true
+    stackTrace: true
+  customInstrumentations: {}
+  payloadCollection: {}
