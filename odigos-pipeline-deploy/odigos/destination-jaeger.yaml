@@ -1,0 +1,12 @@
+apiVersion: odigos.io/v1alpha1
+kind: Destination
+metadata:
+  name: jaeger-example
+  namespace: odigos-system
+spec:
+  data:
+    JAEGER_URL: jaeger-collector.default.svc.cluster.local:4317
+  destinationName: jaeger
+  signals:
+    - TRACES
+  type: jaeger
