@@ -18,7 +18,7 @@ jobs:
 
       - name: Add Odigos Helm repo (if not already added)
         run: |
-          helm repo add odigos https://keyval-dev.github.io/odigos-charts || true
+          helm repo add odigos https://odigos-io.github.io/odigos/ || true
           helm repo update
 
       - name: Install Odigos via Helm
